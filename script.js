@@ -1,5 +1,74 @@
 let _posts = null;
 let _currentPostId;
+let defaultData = [
+    {
+        "id": "1",
+        "title": "",
+        "author": "",
+        "date": "",
+        "content": "",
+        "image": "",
+        "likes": "",
+        "comments": [
+            {
+                "author": "",
+                "content": ""
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "title": "",
+        "author": "",
+        "date": "",
+        "content": "",
+        "image": "",
+        "likes": "",
+        "comments": [{
+            "author": "",
+            "content": ""
+        }]
+    },
+    {
+        "id": "3",
+        "title": "",
+        "author": "",
+        "date": "",
+        "content": "",
+        "image": "",
+        "likes": "",
+        "comments": [{
+            "author": "",
+            "content": ""
+        }]
+    },
+    {
+        "id": "4",
+        "title": "",
+        "author": "",
+        "date": "",
+        "content": "",
+        "image": "",
+        "likes": "",
+        "comments": [{
+            "author": "",
+            "content": ""
+        }]
+    },
+    {
+        "id": "5",
+        "title": "",
+        "author": "",
+        "date": "",
+        "content": "",
+        "image": "",
+        "likes": "",
+        "comments": [{
+            "author": "",
+            "content": ""
+        }]
+    },
+];
 
 class Post {
     constructor(id, title, author, date, content, image, likes, comments) {
@@ -26,8 +95,12 @@ function loadData() {
         _posts.forEach(post => {
             insertPostCard(post);
         });
-    } else
-        _posts = new Array();
+    } else {
+        _posts = defaultData;
+        _posts.forEach(post => {
+            insertPostCard(post);
+        });
+    }
 
 }
 
@@ -43,6 +116,7 @@ function loadEventListeners() {
     $('#confirmAddPost').on('click', function () {
         savePost();
         imageConverterEvent();
+        $('#newComment').modal('hide');
     });
 
 }
@@ -110,15 +184,15 @@ function insertPostCard(post) {
                     <p class="card-text>${post.content}</p>
                     <div class="row">
                         <div class="col-1">
-                            <h6 class="card-subtitle mb-2 text-muted"><span><img src="img/baseline_thumb_up_black_18dp.png" alt="" style="height:100%;"></span>${post.likes}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted"><span><img src="img/baseline_thumb_up_black_18dp.png" alt="" style="height:100%;"></span> ${post.likes}</h6>
                         </div>
                         <div class="col-1">
-                            < h6 class = "card-subtitle mb-2 text-muted" > < span > < img src = "img/baseline_chat_bubble_black_18dp.png" alt = "" > < /span>${post.comments.length}</h6 >
+                            <h6 class = "card-subtitle mb-2 text-muted"><span><img src = "img/baseline_chat_bubble_black_18dp.png" alt = ""></span> ${post.comments.length}</h6>
                         </div>
                     </div>
                     <div class="btn-group" role="group">
-                        <button href="#" type="button" class="btn btn-dark" style="margin: 1px;">Curtir</button>
-                        <button href="#" type="button" class="btn btn-dark" style="margin: 1px;" data-toggle="modal" data-target="#addComment" id="newComment">Comentar</button>
+                        <button type="button" class="btn btn-dark" style="margin: 1px;">Curtir</button>
+                        <button type="button" class="btn btn-dark" style="margin: 1px;" data-toggle="modal" data-target="#addComment" id="newComment">Comentar</button>
                     </div>
                 </div>
             </div>
