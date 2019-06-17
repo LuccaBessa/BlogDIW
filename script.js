@@ -116,19 +116,25 @@ function loadEventListeners() {
     $('#confirmAddPost').on('click', function () {
         savePost();
         imageConverterEvent();
-        $('#newComment').modal('hide');
+        $('#newPost').modal('hide');
     });
 
+    $('#commentsModal').on('shown.bs.modal', function () {
+        insertComments()
+        $('#newComment').trigger('focus')
+    });
+
+    imageConverterEvent();
 }
 
 // Converter Imagem para JSON
 function imageConverterEvent() {
-    var element = document.getElementById("imageFile");
+    let element = document.getElementById("imageFile");
     element.addEventListener('change', loadimage, false);
 }
 function loadimage(e1) {
-    var filename = e1.target.files[0];
-    var fr = new FileReader();
+    let filename = e1.target.files[0];
+    let fr = new FileReader();
     fr.onload = imageHandler;
     fr.readAsDataURL(filename);
 }
@@ -181,13 +187,51 @@ function insertPostCard(post) {
                     <h5 class="card-title">${post.title}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Por: ${post.author} </h6>
                     <h6 class="card-subtitle mb-2 text-muted">${post.date}</h6>
-                    <p class="card-text>${post.content}</p>
+                    <p class="card-text">${post.content}</p>
                     <div class="row">
                         <div class="col-1">
                             <h6 class="card-subtitle mb-2 text-muted"><span><img src="img/baseline_thumb_up_black_18dp.png" alt="" style="height:100%;"></span> ${post.likes}</h6>
                         </div>
                         <div class="col-1">
-                            <h6 class = "card-subtitle mb-2 text-muted"><span><img src = "img/baseline_chat_bubble_black_18dp.png" alt = ""></span> ${post.comments.length}</h6>
+                            <h6 class = "card-subtitle mb-2 text-muted"><span><a data-toggle="modal" data-target="#comments"><img src = "img/baseline_chat_bubble_black_18dp.png" alt = ""></a></span> ${post.comments.length}</h6>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-dark" style="margin: 1px;">Curtir</button>
+                        <button type="button" class="btn btn-dark" style="margin: 1px;" data-toggle="modal" data-target="#addComment" id="newComment">Comentar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1" style="width: 100%">
+        </div>
+    </div>
+    <br>    
+    `);
+
+    function insertComments(post) {
+        $("#postPlace").append(`
+    <br>
+    <div class="row">
+        <div class="col-1" style="width:100%;height:auto;">
+        </div>
+        <div class="col-10">
+            <div class="card" style="width:100%;">
+                <div>
+                    <img src="${post.image}" class="card-img-top img-fluid text-center "
+                        style=width:100%;height:auto;>
+                </div>
+                <div class="card-body bg-light">
+                    <h5 class="card-title">${post.title}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Por: ${post.author} </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">${post.date}</h6>
+                    <p class="card-text">${post.content}</p>
+                    <div class="row">
+                        <div class="col-1">
+                            <h6 class="card-subtitle mb-2 text-muted"><span><img src="img/baseline_thumb_up_black_18dp.png" alt="" style="height:100%;"></span> ${post.likes}</h6>
+                        </div>
+                        <div class="col-1">
+                            <h6 class = "card-subtitle mb-2 text-muted"><span><a data-toggle="modal" data-target="#commentsModal"><img src = "img/baseline_chat_bubble_black_18dp.png" alt = ""></a></span> ${post.comments.length}</h6>
                         </div>
                     </div>
                     <div class="btn-group" role="group">
