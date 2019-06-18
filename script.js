@@ -11,8 +11,8 @@ let defaultData = [
         "image": "",
         "likes": "678",
         "comments": [{
-            "author": "",
-            "content": ""
+            "author": "Fulano",
+            "content": "Legal"
         }]
     }, {
         "id": "2",
@@ -115,8 +115,6 @@ function loadEventListeners() {
     });
 
     $('#commentsModal').on('shown.bs.modal', function () {
-        setCurrentId();
-        insertComments(_posts);
         $('#comments').trigger('focus');
     });
 
@@ -188,12 +186,12 @@ function insertPostCard(post) {
                             <h6 class="card-subtitle mb-2 text-muted"><span><img src="img/baseline_thumb_up_black_18dp.png" alt="" style="height:100%;"></span> ${post.likes}</h6>
                         </div>
                         <div class="col-1">
-                            <h6 class="card-subtitle mb-2 text-muted"><span><a id="commentsModal" data-toggle="modal" data-target="#comments"><img src="img/baseline_chat_bubble_black_18dp.png" alt = ""></a></span> ${post.comments.length}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted"><span><a id="commentsModal" data-toggle="modal" data-target="#comments" onClick="currentId(${post.id}); insertComments()"><img src="img/baseline_chat_bubble_black_18dp.png" alt = ""></a></span> ${post.comments.length}</h6>
                         </div>
                     </div>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-dark" style="margin: 1px;">Curtir</button>
-                        <button type="button" class="btn btn-dark" style="margin: 1px;" data-toggle="modal" data-target="#addComment" id="newComment">Comentar</button>
+                        <button type="button" class="btn btn-dark" style="margin: 1px;" data-toggle="modal" data-target="#addComment" id="newComment" onClick="currentId(${post.id})">Comentar</button>
                     </div>
                 </div>
             </div>
@@ -201,25 +199,38 @@ function insertPostCard(post) {
         <div class="col-1" style="width: 100%">
         </div>
     </div>
+    <div class="modal fade" id="comments${post.id}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Comentários</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button> 
+                </div> 
+                <div class="modal-body">
+                    <div d="commentsPlace${post.id}">
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+    </div>
     <br>    
     `);
 
-    function insertComments(posts) {
-        posts.forEach(function (post) {
-            if(post.id == _currentPostIdAux){
-                post.comments.forEach(function (comment) {
-                    $("#commentsPlace").append(`
-                        <br>
-                        <div class="row">
-                        </div>
-                        <br>    
-                    `);
-                })
-            }
-        });
-    }
+}
 
-    function setCurrentId() {
-        _currentPostIdAux = $(this).closest('.card-body bg-light').find('#id').attr(id);
-    }
+function insertComments() {
+    let commentsPlace = "#commentsPlace"+_currentPostIdAux;
+    _posts[_currentPostIdAux].comments.forEach(function (comment) {
+        $(commentsPlace).append(`
+            <br>
+            <hr>
+            <div class="row">
+                <h6>${comment.author}</h6>
+                <p>${comment.content}</p>
+            </div>
+            <hr>
+            <br>    
+        `);
+    });
 }
