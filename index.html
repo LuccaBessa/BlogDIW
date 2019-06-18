@@ -24,9 +24,6 @@
 <body>
     <nav class="navbar navbar-dark bg-dark sticky-top">
         <span class="navbar-brand mb-0 h1" style=>Blog</span>
-        <a class="nav-link p-2" href="https://github.com/twbs/bootstrap" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img" focusable="false">…</svg>
-        </a>
         <button class="btn btn-outline-light btn-dark" type="button" id="newPost" data-toggle="modal" data-target="#addPost">Novo Post</button>
     </nav>
     <div class="bg-secondary">
@@ -85,18 +82,18 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="author" aria-describedby="" placeholder="Escreva seu nome..."
+                                    <input type="text" class="form-control" id="authorComment" aria-describedby="" placeholder="Escreva seu nome..."
                                         required aria-required="true" maxlength="25">
                                 </div>
                                 <div class="form-group">
-                                    <textarea class="form-control" id="content" rows="3" placeholder="Escreva um comentário..."></textarea>
+                                    <textarea class="form-control" id="contentComment" rows="3" placeholder="Escreva um comentário..."></textarea>
                                 </div>
                                 <input type="text" id="profileImg" style="visibility: hidden">
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-dark" id='confirmAdd'>Adicionar</button>
+                            <button type="submit" class="btn btn-dark" id='confirmAddComment'>Adicionar</button>
                         </div>
                     </div>
                 </div>
@@ -108,7 +105,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="ModalLabel">Comentários</h5>
-                            <button onClick="removeComments()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -120,6 +117,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     </div>
 </body>
