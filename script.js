@@ -180,10 +180,10 @@ function insertPostCard(post) {
                     <h6 class="card-subtitle mb-2 text-muted">${post.date}</h6>
                     <p class="card-text">${post.content}</p>
                     <div class="row">
-                        <div class="col-1">
+                        <div class="col-2" style="white-space: nowrap;">
                             <h6 class="card-subtitle mb-2 text-muted"><span><img src="img/baseline_thumb_up_black_18dp.png" alt="" style="height:100%;"></span> ${post.likes}</h6>
                         </div>
-                        <div class="col-1">
+                        <div class="col-2" style= "white-space: nowrap;">
                             <h6 class="card-subtitle mb-2 text-muted"><span><a id="commentsModal" data-toggle="modal" data-target="#comments" onClick="insertComments(${post.id});"><img src="img/baseline_chat_bubble_black_18dp.png" alt=""></a></span> ${post.comments.length}</h6>
                         </div>
                     </div>
